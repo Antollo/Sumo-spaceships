@@ -1,0 +1,14 @@
+{
+  "name": "sumo-spaceships",
+  "version": "0.0.1",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "author": "Antoni Nowinowski",
+  "license": "Zlib",
+  "dependencies": {
+    "express": "^4.16.3"
+  }
+}
