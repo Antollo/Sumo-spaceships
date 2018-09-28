@@ -31,7 +31,9 @@ window.addEventListener('load', function () {
             w: false,
             s: false,
             a: false,
-            d: false
+            d: false,
+            ArrowLeft: false,
+            ArrowRight: false,
         };
 
         //Init functions:
@@ -108,13 +110,11 @@ window.addEventListener('load', function () {
 
         //Main loop:
         function mainLoopIteration() {
-            if (keys.w) gameObjectArray[0].mainEngine(1);
+            iteratePlayerControlAndUi()
+            /*if (keys.w) gameObjectArray[0].mainEngine(1);
             if (keys.s) gameObjectArray[0].mainEngine(-1);
             if (keys.a) gameObjectArray[0].rotate(-1);
-            if (keys.d) gameObjectArray[0].rotate(1);
-
-            infoBox.textContent = 'X: ' + Math.round(gameObjectArray[0].getX()).toString() + '\n'
-                + 'Y: ' + Math.round(gameObjectArray[0].getY()).toString();
+            if (keys.d) gameObjectArray[0].rotate(1);*/
 
             var now = new Date().getTime() * 1000;
             physicsWorld.stepSimulation(now - lastDraw, 10);
@@ -138,6 +138,18 @@ window.addEventListener('load', function () {
             ctx.fillStyle = 'white';
             ctx.fill();
         }
+        
+        function iteratePlayerControlAndUi() {
+            if (keys.w) gameObjectArray[0].up()
+            if (keys.s) gameObjectArray[0].down();
+            if (keys.a) gameObjectArray[0].left();
+            if (keys.d) gameObjectArray[0].right();
+            if (keys.ArrowLeft) gameObjectArray[0].rotate(-1);
+            if (keys.ArrowRight) gameObjectArray[0].rotate(1);
+
+            infoBox.textContent = 'X: ' + Math.round(gameObjectArray[0].getX()).toString() + '\n'
+                + 'Y: ' + Math.round(gameObjectArray[0].getY()).toString();
+        }
 
         //Initialization:
         initializeGraphics();
@@ -147,8 +159,8 @@ window.addEventListener('load', function () {
     });
 
 
-    var DPadManager = nipplejs.create({zone: document.getElementById('d-pad-zone')});
-    DPadManager.on('added', function (evt, dpad) {
+    var LeftDPadManager = nipplejs.create({zone: document.getElementById('left-d-pad-zone')});
+    LeftDPadManager.on('added', function (evt, dpad) {
         dpad.on('dir:up', function (evt) {
             window.dispatchEvent(new KeyboardEvent('keydown', { key: 'w' }));
             window.dispatchEvent(new KeyboardEvent('keyup', { key: 's' }));
@@ -178,6 +190,24 @@ window.addEventListener('load', function () {
             window.dispatchEvent(new KeyboardEvent('keyup', { key: 's' }));
             window.dispatchEvent(new KeyboardEvent('keyup', { key: 'a' }));
             window.dispatchEvent(new KeyboardEvent('keyup', { key: 'd' }));
+        });
+    }).on('removed', function (evt, dpad) {
+        dpad.off('dir end');
+    });
+    var RightDPadManager = nipplejs.create({zone: document.getElementById('right-d-pad-zone')});
+    RightDPadManager.on('added', function (evt, dpad) {
+        dpad.on('dir:left', function (evt) {
+            window.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowLeft' }));
+            window.dispatchEvent(new KeyboardEvent('keyup', { key: 'ArrowRight' }));
+        });
+        dpad.on('dir:right', function (evt) {
+            window.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowRight' }));
+            window.dispatchEvent(new KeyboardEvent('keyup', { key: 'ArrowLeft' }));
+        });
+        dpad.on('end', function (evt) {
+            window.dispatchEvent(new KeyboardEvent('keyup', { key: 'ArrowRight' }));
+            window.dispatchEvent(new KeyboardEvent('keyup', { key: 'ArrowLeft' }));
+
         });
     }).on('removed', function (evt, dpad) {
         dpad.off('dir end');

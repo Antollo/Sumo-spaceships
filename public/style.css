@@ -31,9 +31,16 @@ html {
     padding: 10px 30px 30px 10px;
     border-bottom-right-radius: 90%;
 }
-#d-pad-zone {
+#left-d-pad-zone {
     position: absolute;
     left: 0;
+    top: 0;
+    width: 50%;
+    height: 100%;
+}
+#right-d-pad-zone {
+    position: absolute;
+    right: 0;
     top: 0;
     width: 50%;
     height: 100%;

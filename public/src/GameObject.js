@@ -56,6 +56,11 @@ class GameObject {
         var force = frontVector.rotate(this.transform.getRotation().getAxis(), this.transform.getRotation().getAngle());
         this.body.applyCentralForce(multiplyVector3(force, this.mainEngineForce * dir));
     }
+    up() { var force = new Ammo.btVector3(0, -1, 0); this.body.applyCentralForce(multiplyVector3(force, this.mainEngineForce)); }
+    down() { var force = new Ammo.btVector3(0, 1, 0); this.body.applyCentralForce(multiplyVector3(force, this.mainEngineForce)); }
+    left() { var force = new Ammo.btVector3(-1, 0, 0); this.body.applyCentralForce(multiplyVector3(force, this.mainEngineForce)); }
+    right() { var force = new Ammo.btVector3(1, 0, 0); this.body.applyCentralForce(multiplyVector3(force, this.mainEngineForce)); }
+
     rotate(dir) {
         this.body.applyTorque(new Ammo.btVector3(0, 0, this.manoeuverEngineForce * dir));
     }
