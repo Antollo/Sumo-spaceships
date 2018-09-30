@@ -16,20 +16,47 @@ html {
     overflow: hidden;
     
 }
-#info {
+#timer {
     position: absolute;
     white-space: pre;
     background-color: rgba(255, 255, 255, 0.5);
-    width: 45px;
-    height: 45px;
+    width: 30px;
+    height: 30px;
     font-family: 'Roboto', sans-serif;
     font-weight: 300;
+    font-size: 20px;
     color: 'black';
     overflow: hidden;
     left: 0;
     top: 0;
-    padding: 10px 30px 30px 10px;
+    padding: 5px 30px 30px 10px;
     border-bottom-right-radius: 90%;
+    cursor: default;
+}
+#info {
+    position: absolute;
+    background-color: rgba(255, 255, 255, 0.5);
+    width: calc(100% - 60px);
+    font-family: 'Roboto', sans-serif;
+    font-weight: 300;
+    font-size: 20px;
+    color: 'black';
+    overflow: hidden;
+    left: 0;
+    bottom: 0;
+    cursor: default;
+    animation: hideAnimation 0s ease-in 10s forwards;
+
+    border-top-right-radius: 50px;
+    border-top-left-radius: 50px;
+    padding: 5px 30px 5px 30px;
+}
+@keyframes hideAnimation {
+    to {
+        width:0;
+        height:0;
+        visibility: hidden;
+    }
 }
 #left-d-pad-zone {
     position: absolute;
@@ -44,4 +71,7 @@ html {
     top: 0;
     width: 50%;
     height: 100%;
+}
+ul {
+    margin: 0;
 }
