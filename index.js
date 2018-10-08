@@ -7,4 +7,8 @@ app.get('/', function (req, res) {
     res.sendFile(__dirname + '/public/index.html');
 });
 
+app.get('/private', function (req, res) {
+    res.sendFile(__dirname + '/public/private/index.html');
+});
+
 http.listen(process.env.PORT || 3000, function(){});
